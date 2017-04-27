@@ -27,7 +27,8 @@ knitr::opts_chunk$set(
 
 Delete this sentence and enter your text here.
 ```{r}
-data <- read.xlsx("dataset.xlsx",1)
+data <- read.csv("pimaData.csv")
+
 ```
 
 #Task
@@ -38,4 +39,17 @@ You are asked to:
 Deliverables: Wednesday 5/10/17 at noon
 1 - Prepare a short report on this study for consumption by the Centers for Diasease Control and Prevention.  The report should contain no more than 3 pages of text. Due Wednesday 5/10/17 at noon. The report should contain a technical appendix.
 2 - Email your R markdown file to Professor Matheson so that I can reproduce the technical appendix.
+
+```{r}
+summary(data)
+hist(data$PRG)
+hist(data$Plasma)
+hist(data$BP)
+hist(data$Thick)
+hist(data$Insulin)
+hist(data$Body)
+hist(data$Pedigree)
+hist(data$Age)
+hist(data$Response)
+```
 
