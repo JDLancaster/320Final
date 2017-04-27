@@ -28,8 +28,6 @@ knitr::opts_chunk$set(
 Delete this sentence and enter your text here.
 ```{r}
 data <- read.xlsx("dataset.xlsx",1)
-data <- rename(data, PRG = V1, PLASMA = V2, BP = V3, THICK = V4, INSULIN = V5, 
-             BODY = V6, PEDIGREE = V7, AGE = V8, RESPONSE = V9)
 ```
 
 #Task
