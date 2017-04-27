@@ -29,3 +29,13 @@ Delete this sentence and enter your text here.
 ```{r}
 data <- read.xlsx("dataset.xlsx",1)
 ```
+
+#Task
+You are asked to:
+1 - Predict the probability that individual females have diabetes
+2 - Detect subsets of characteristics that are at higher risk of diabetes
+
+Deliverables: Wednesday 5/10/17 at noon
+1 - Prepare a short report on this study for consumption by the Centers for Diasease Control and Prevention.  The report should contain no more than 3 pages of text. Due Wednesday 5/10/17 at noon. The report should contain a technical appendix.
+2 - Email your R markdown file to Professor Matheson so that I can reproduce the technical appendix.
+
