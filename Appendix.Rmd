@@ -43,6 +43,10 @@ summary(modInsulin)
 summary(modNoInsulin)
 ```
 
+```{r}
+rf <- randomForest(Diabetic~., data=data)
+varImpPlot(rf)
+```
 #Task
 You are asked to:
 1 - Predict the probability that individual females have diabetes
