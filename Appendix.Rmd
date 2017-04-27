@@ -32,6 +32,15 @@ Delete this sentence and enter your text here.
 ```{r}
 data <- read.csv("pimaData.csv")
 data <- filter(data, Plasma>0, BP>0, BMI>0)
+data <- data[-c(1)]
+```
+
+```{r}
+modInsulin <- lm(Diabetic ~ .,data=data)
+modNoInsulin <- lm(Diabetic ~ . - Insulin, data=data)
+
+summary(modInsulin)
+summary(modNoInsulin)
 ```
 
 #Task
