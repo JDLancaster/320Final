@@ -19,7 +19,7 @@ require(mosaic)   # Load additional packages here
 require(xlsx)
 require(dplyr)
 require(tidyr)
-
+require(randomForest)
 
 # Some customization.  You can alter or delete as desired (if you know what you are doing).
 trellis.par.set(theme=theme.mosaic()) # change default color scheme for lattice
@@ -47,6 +47,7 @@ summary(modNoInsulin)
 rf <- randomForest(Diabetic~., data=data)
 varImpPlot(rf)
 ```
+
 #Task
 You are asked to:
 1 - Predict the probability that individual females have diabetes
