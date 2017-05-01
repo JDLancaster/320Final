@@ -1,7 +1,5 @@
 ---
-title: "Appendix"
-author: "JL"
-date: "4/27/17"
+title: "Appendix A"
 output: 
   pdf_document:
     fig_height: 3
@@ -28,45 +26,70 @@ knitr::opts_chunk$set(
   size="small")   # slightly smaller font for code
 ```
 
-Delete this sentence and enter your text here.
-```{r}
+## Required Packages
+
+```{r, eval = FALSE}
+require(mosaic)
+require(xlsx)
+require(dplyr)
+require(tidyr)
+require(randomForest)
+require(ggplot2)
+require(grid)
+require(gridExtra)
+```
+
+## Loading and cleaning the data
+
+```{r, eval = FALSE}
 data <- read.csv("pimaData.csv")
 data <- filter(data, Plasma>0, BP>0, BMI>0)
 data <- data[-c(1)]
 ```
 
-```{r}
-modInsulin <- lm(Diabetic ~ .,data=data)
-modNoInsulin <- lm(Diabetic ~ . - Insulin, data=data)
+## Creating and graphing a random forest
 
-summary(modInsulin)
-summary(modNoInsulin)
-```
-
-```{r}
+```{r, eval = FALSE}
 rf <- randomForest(Diabetic~., data=data)
-varImpPlot(rf)
+# Note that the four most predictive variables are 
+  # Plasma, BMI, Age, and Pedigree (in that order)
+varImpPlot(rf) 
 ```
 
-#Task
-You are asked to:
-1 - Predict the probability that individual females have diabetes
-2 - Detect subsets of characteristics that are at higher risk of diabetes
+## Creating the graph displayed in Section II
 
-Deliverables: Wednesday 5/10/17 at noon
-1 - Prepare a short report on this study for consumption by the Centers for Diasease Control and Prevention.  The report should contain no more than 3 pages of text. Due Wednesday 5/10/17 at noon. The report should contain a technical appendix.
-2 - Email your R markdown file to Professor Matheson so that I can reproduce the technical appendix.
+```{r, eval = FALSE}
+data0 <- filter(data, Diabetic == 1)
+data0$Diabetic <- ifelse(data0$Diabetic == 1, "Diabetic", "Not Diabetic")
 
-```{r}
-summary(data)
-hist(data$PRG)
-hist(data$Plasma)
-hist(data$BP)
-hist(data$Thick)
-hist(data$Insulin)
-hist(data$Body)
-hist(data$Pedigree)
-hist(data$Age)
-hist(data$Response)
+data1 <- filter(data, Diabetic == 0)
+data1$Diabetic <- ifelse(data1$Diabetic == 1, "Diabetic", "Not Diabetic")
+
+g1 <- ggplot(data0, aes(x = Plasma, y = BMI)) + geom_point() + 
+  facet_wrap(~Diabetic) + geom_hline(yintercept = mean(data0$BMI), color = "red") + 
+  geom_vline(xintercept = mean(data0$Plasma), color = "green") +
+  geom_text(aes(0, mean(data0$BMI), label = "Average BMI = 35.3", vjust = 1.5, 
+                hjust = .1), size = 3) +
+  geom_text(aes(mean(data0$Plasma), 0, label = "Average Plasma = 142.6", 
+                hjust = 1.1), size = 3)
+
+g2 <- ggplot(data1, aes(x = Plasma, y = BMI)) + geom_point() + 
+  facet_wrap(~Diabetic) + geom_hline(yintercept = mean(data1$BMI), 
+                                     color = "red", label) + 
+  geom_vline(xintercept = mean(data1$Plasma), color = "green") +
+  geom_text(aes(0, mean(data1$BMI), label = "Average BMI = 30.9", vjust = 1.5, 
+                hjust = .1), size = 3) +
+  geom_text(aes(mean(data1$Plasma), 0, label = "Average Plasma = 111.0",
+                hjust = 1.1), size = 3)
+
+grid.arrange(g1, g2, ncol = 2, top = "Figure 1. Comparing Averages between 
+             Diabetics and Non-Diabetics")
 ```
+
+## Creating the model shown in Section III
+
+```{r, eval = FALSE}
+
+```
+
 
