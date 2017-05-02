@@ -66,21 +66,26 @@ data1 <- filter(data, Diabetic == 0)
 data1$Diabetic <- ifelse(data1$Diabetic == 1, "Diabetic", "Not Diabetic")
 
 g1 <- ggplot(data0, aes(x = Plasma, y = BMI)) + geom_point() + 
-  facet_wrap(~Diabetic) + geom_hline(yintercept = mean(data0$BMI), color = "red") + 
+  facet_wrap(~Diabetic) + geom_hline(yintercept = mean(data0$BMI), 
+                                     color = "red") + 
   geom_vline(xintercept = mean(data0$Plasma), color = "green") +
-  geom_text(aes(0, mean(data0$BMI), label = "Average BMI = 35.3", vjust = 1.5, 
-                hjust = .1), size = 3) +
+  geom_text(aes(0, mean(data0$BMI), label = "Average BMI = 35.3", 
+                vjust = 1.5, hjust = .1), size = 3) +
   geom_text(aes(mean(data0$Plasma), 0, label = "Average Plasma = 142.6", 
-                hjust = 1.1), size = 3)
+                hjust = 1.1), size = 3) +
+  scale_x_continuous(limits = c(0, 200)) + 
+  scale_y_continuous(limits = c(0, 70))
 
 g2 <- ggplot(data1, aes(x = Plasma, y = BMI)) + geom_point() + 
   facet_wrap(~Diabetic) + geom_hline(yintercept = mean(data1$BMI), 
                                      color = "red", label) + 
   geom_vline(xintercept = mean(data1$Plasma), color = "green") +
-  geom_text(aes(0, mean(data1$BMI), label = "Average BMI = 30.9", vjust = 1.5, 
-                hjust = .1), size = 3) +
-  geom_text(aes(mean(data1$Plasma), 0, label = "Average Plasma = 111.0",
-                hjust = 1.1), size = 3)
+  geom_text(aes(0, mean(data1$BMI), label = "Average BMI = 30.9", 
+                vjust = 1.5, hjust = .1), size = 3) +
+  geom_text(aes(mean(data1$Plasma), 0, label = "Average Plasma = 111.0", 
+                hjust = 1.1), size = 3) +
+  scale_x_continuous(limits = c(0, 200)) + 
+  scale_y_continuous(limits = c(0, 70))
 
 grid.arrange(g1, g2, ncol = 2, top = "Figure 1. Comparing Averages between 
              Diabetics and Non-Diabetics")
